@@ -1,0 +1,42 @@
+name: Task 1 CI Pipeline
+on: [push, pull_request]
+
+jobs:
+  ci-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: task-1/package-lock.json
+
+      - name: Install dependencies
+        run: |
+          cd task-1
+          npm install
+
+      - name: Run Linter
+        run: |
+          cd task-1
+          npm run lint
+
+      - name: Run Unit Tests
+        run: |
+          chmod +x .hyf/test.sh
+          ./.hyf/test.sh
+
+      - name: Build React App
+        run: |
+          cd task-1
+          npm run build
+
+      - name: Upload Build Artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: production-build
+          path: task-1/dist/

@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type KeyboardEvent } from "react";
+import { useState, type FormEvent, type KeyboardEvent } from 'react';
 
 interface Props {
   onSearch: (city: string) => void;
@@ -6,8 +6,7 @@ interface Props {
 }
 
 export function SearchBar({ onSearch, loading }: Props) {
-  const [value, setValue] = useState("");
-  const unusedConstMaybeDeleteMe = "Search";
+  const [value, setValue] = useState('');
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -15,7 +14,7 @@ export function SearchBar({ onSearch, loading }: Props) {
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && value.trim()) onSearch(value);
+    if (e.key === 'Enter' && value.trim()) onSearch(value);
   };
 
   return (
@@ -25,7 +24,7 @@ export function SearchBar({ onSearch, loading }: Props) {
         className="search-input"
         placeholder="Enter city name..."
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={e => setValue(e.target.value)}
         onKeyDown={handleKeyDown}
         aria-label="City name"
         disabled={loading}
@@ -37,7 +36,7 @@ export function SearchBar({ onSearch, loading }: Props) {
         disabled={loading || !value.trim()}
         aria-label="Search weather"
       >
-        {loading ? "Searching…" : "Search"}
+        {loading ? 'Searching…' : 'Search'}
       </button>
     </form>
   );
